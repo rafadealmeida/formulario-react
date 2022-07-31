@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { Button, TextField, Switch, FormControlLabel } from "@mui/material";
 
-function FormularioCadastro() {
+function FormularioCadastro({aoEnviar, validarCPF}) {
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [cpf, setCpf] = useState("");
   const [promocao, setPromocao] = useState(true);
   const [novidade, setNovidade] = useState(true);
+  const [error, setError] = useState({cpf:{valido: true, texto:""}});
 
   return (
     <form
       onSubmit={(event) => {
-        event.preventDefault();
+          event.preventDefault();
+          aoEnviar({nome,sobrenome,cpf,promocao,novidade})
       }}
       className="formulario"
     >
@@ -42,6 +44,14 @@ function FormularioCadastro() {
         onChange={(event) => {
           setCpf(event.target.value);
         }}
+
+        onBlur={(event) => {
+            const ehValido = validarCPF(cpf)
+            setError({cpf: ehValido});
+        }}
+
+        error={!error.cpf.valido}
+        helperText={error.cpf.texto}
         id="cpf"
         label="CPF"
         variant="outlined"
@@ -52,10 +62,10 @@ function FormularioCadastro() {
       <FormControlLabel
         control={
           <Switch
+          checked={promocao}
             onChange={(event) => {
               setPromocao(event.target.checked);
             }}
-            defaultChecked={promocao}
             name="promocao"
           />
         }
@@ -65,17 +75,17 @@ function FormularioCadastro() {
       <FormControlLabel
         control={
           <Switch
+          checked={novidade}
             onChange={(event) => {
               setNovidade(event.target.checked);
             }}
-            defaultChecked={novidade}
             name="novidade"
           />
         }
         label="Novidade"
       />
 
-      <Button variant="contained"> Cadastrar</Button>
+      <Button type="submit" variant="contained"> Cadastrar</Button>
     </form>
   );
 }
