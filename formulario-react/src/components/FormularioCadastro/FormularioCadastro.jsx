@@ -6,20 +6,21 @@ import DadosUsuario from "./DadosUsuarios";
 function FormularioCadastro({ aoEnviar, validarCPF }) {
   const [etapaAtual, setEtapaAtual] = useState(0);
 
-  function formularioAtual(etapa){
-    switch (etapa){
-      case 0:
-        return <DadosUsuario/>
-      case 1:
-        return <DadosPessoais aoEnviar={aoEnviar} validarCPF={validarCPF}/>
-      case 2:
-        return <DadosEntrega/>
-    }
+  function proximaEtapa() {
+    setEtapaAtual(etapaAtual+1)
   }
-  
+  function voltarEtapa() {
+    setEtapaAtual(etapaAtual-1)
+  }
+
+  const formularios = [
+  <DadosUsuario aoEnviar={proximaEtapa} />,
+  <DadosPessoais aoEnviar={proximaEtapa} voltarEtapa={voltarEtapa} validarCPF={validarCPF}/>, 
+  <DadosEntrega aoEnviar={aoEnviar} voltarEtapa={voltarEtapa}/> 
+] 
   return (
     <>
-    {formularioAtual(etapaAtual)}  
+    {formularios[etapaAtual]} 
       
     </>
   );
