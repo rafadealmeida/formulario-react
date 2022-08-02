@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, TextField, Switch, FormControlLabel } from "@mui/material";
 
-function DadosPessoais({aoEnviar, validarCPF}) {
+function DadosPessoais({aoEnviar, validarCPF, voltarEtapa}) {
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [cpf, setCpf] = useState("");
@@ -25,6 +25,7 @@ function DadosPessoais({aoEnviar, validarCPF}) {
         id="nome"
         label="Nome"
         variant="outlined"
+        required
         margin="normal"
         fullWidth
       />
@@ -36,6 +37,7 @@ function DadosPessoais({aoEnviar, validarCPF}) {
         id="sobrenome"
         label="Sobrenome"
         variant="outlined"
+        required
         margin="normal"
         fullWidth
       />
@@ -55,6 +57,7 @@ function DadosPessoais({aoEnviar, validarCPF}) {
         id="cpf"
         label="CPF"
         variant="outlined"
+        required
         margin="normal"
         fullWidth
       />
@@ -85,6 +88,7 @@ function DadosPessoais({aoEnviar, validarCPF}) {
         label="Novidade"
       />
 
+      <Button type="button" variant="contained" onClick={() => {voltarEtapa()}}> Voltar etapa</Button>
       <Button type="submit" variant="contained"> Cadastrar</Button>
     </form>
   );
