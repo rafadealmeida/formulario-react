@@ -9,12 +9,13 @@ function DadosUsuario({ aoEnviar }) {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        aoEnviar();
+        aoEnviar({email, senha});
       }}
     >
       <TextField onChange={(event) => {
         setEmail(event.target.value)
       }}
+        value = {email}
         id="email"
         label="Email"
         type="email"
@@ -25,6 +26,7 @@ function DadosUsuario({ aoEnviar }) {
       <TextField onChange={(event) => {
         setSenha(event.target.value)
       }}
+        value={senha}
         id="password"
         label="Senha"
         type="password"
