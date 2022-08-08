@@ -11,8 +11,18 @@ function DadosPessoais({aoEnviar, validacoes, voltarEtapa}) {
 
   function validarCampos(event) {
       const {name,value}= event.target
-      const ehValido = validacoes[name](value)
-      setError({cpf: ehValido});
+      const novoEstado = {... error} 
+      novoEstado[name] = validacoes[name](value)
+      setError(novoEstado);
+  }
+
+  function possoEnviar(){
+    for(let campo in error){
+      if(!error[campo].valido){
+        return false
+      }
+      return true;
+    }
   }
 
 
@@ -21,7 +31,10 @@ function DadosPessoais({aoEnviar, validacoes, voltarEtapa}) {
     <form
       onSubmit={(event) => {
           event.preventDefault();
-          aoEnviar({nome,sobrenome,cpf,promocao,novidade})
+
+          if(possoEnviar()){          
+           aoEnviar({nome,sobrenome,cpf,promocao,novidade})
+          }
       }}
       className="formulario"
     >
@@ -55,9 +68,7 @@ function DadosPessoais({aoEnviar, validacoes, voltarEtapa}) {
           setCpf(event.target.value);
         }}
 
-        onBlur={(event) => {
-           validarCampos(event)
-        }}
+        onBlur={validarCampos}
 
         error={!error.cpf.valido}
         helperText={error.cpf.texto}
@@ -97,7 +108,7 @@ function DadosPessoais({aoEnviar, validacoes, voltarEtapa}) {
       />
 
       <Button type="button" variant="contained" onClick={() => {voltarEtapa()}}> Voltar etapa</Button>
-      <Button type="submit" variant="contained"> Cadastrar</Button>
+      <Button type="submit" variant="contained"> Próximo </Button>
     </form>
   );
 }
