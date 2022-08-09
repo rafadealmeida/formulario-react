@@ -13,17 +13,15 @@ function useErros(validacoes){
     }
 
 
-    function possoEnviar(){
-        for(let campo in erros){
-          if(!erros[campo].valido){
-            return false
-          }else{
-              return true;
-
+    function possoEnviar() {
+        for (let campo in erros) {
+          if (!erros[campo].valido) {
+            return false;
           }
         }
-    }
-
+        return true;
+      }
+      
     return[erros, validarCampos, possoEnviar]
 }
 
