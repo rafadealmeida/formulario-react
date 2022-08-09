@@ -17,4 +17,4 @@ function validarCPF(cpf){
   }
 
 
-export {validarSenha, validarCPF}
+export {validarCPF, validarSenha}
