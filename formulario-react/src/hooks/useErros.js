@@ -17,8 +17,10 @@ function useErros(validacoes){
         for(let campo in erros){
           if(!erros[campo].valido){
             return false
+          }else{
+              return true;
+
           }
-          return true;
         }
     }
 

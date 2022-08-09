@@ -19,7 +19,7 @@ function DadosUsuario({ aoEnviar}) {
 
         if(possoEnviar()){
           aoEnviar({email, senha});
-
+          
         }
       }}
     >
@@ -34,16 +34,18 @@ function DadosUsuario({ aoEnviar}) {
         margin="normal"
         fullWidth
       />
-      <TextField onChange={(event) => {
+      <TextField 
+      value={senha}
+      onChange={(event) => {
         setSenha(event.target.value)
       }}
         onBlur={validarCampos}
-        name="senha"
-        value={senha}
+
         error={!erros.senha.valido}
         helperText={erros.senha.texto}
-        id="password"
+        id="senha"
         label="Senha"
+        name="senha"
         type="password"
         required
         margin="normal"
